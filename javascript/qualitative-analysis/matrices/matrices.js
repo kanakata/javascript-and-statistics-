@@ -3,6 +3,12 @@ export class Matrices {
     [1, 0],
     [0, 1],
   ];
+  #profile(matrix) {
+    return {
+      rows: matrix.length,
+      columns: matrix[0].length,
+    };
+  }
   add(...matrices) {
     let result = [];
     const matrice_count = matrices.length;
@@ -44,6 +50,7 @@ export class Matrices {
 
     return result;
   }
+
   subtraction(...matrices) {
     let result = [];
     const matrice_count = matrices.length;
@@ -85,6 +92,7 @@ export class Matrices {
 
     return result;
   }
+
   multiply(...matrices) {
     if (matrices[0][0].length != matrices[1].length) {
       return console.log('invalid');
@@ -116,7 +124,63 @@ export class Matrices {
     }
     console.log(result);
   }
+
   transpose(matrix) {
+    const profile = this.#profile(matrix);
+
     let result = [];
+    for (let i = 0; i < profile.columns; i++) {
+      result.push([]);
+    }
+
+    for (let i = 0; i < this.#profile(result).rows; i++) {
+      let temp = 0;
+      for (let j = 0; j < profile.rows; j++) {
+        result[i].push(matrix[j][i]);
+      }
+    }
+
+    return result;
+  }
+
+  determinant(matrix) {
+    const profile = this.#profile(matrix);
+    if (profile.rows == profile.columns) {
+      if (profile.rows == 2 && profile.columns == 2) {
+        let determinant = 0;
+        for (let i = 0; i < profile.rows; i++) {
+          if (i == 0) {
+            determinant += matrix[i][i] * matrix[i + 1][i + 1];
+          } else {
+            determinant -= matrix[i][i - 1] * matrix[i - 1][i];
+          }
+        }
+        console.log(determinant);
+      }
+    }
+  }
+
+  divide(matrix, divider) {
+    const profile = this.#profile(matrix);
+    let temp = [];
+    for (let i = 0; i < matrix.length; i++) {
+      temp.push(...matrix[i]);
+    }
+
+    let temp2 = [];
+    for (let i = 0; i < temp.length; i++) {
+      temp2.push(temp[i] / divider);
+    }
+
+    let result = [];
+    let start = 0;
+    let end = profile.columns;
+    for (let i = 0; i < profile.rows; i++) {
+      result.push(temp2.slice(start, end));
+      start += profile.columns;
+      end += profile.columns;
+    }
+
+    return result;
   }
 }
