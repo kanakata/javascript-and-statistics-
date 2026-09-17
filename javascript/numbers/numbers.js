@@ -1,6 +1,4 @@
-import { Stack } from '../utils/data-structures.js';
-
-export class Binary {
+class Numbers {
   toDecUtil(ns, b) {
     const a = String(ns);
     const stack = new Stack();
@@ -19,6 +17,7 @@ export class Binary {
 
     return result;
   }
+
   bin2dec(binary) {
     return this.toDecUtil(binary, 2);
   }
@@ -66,7 +65,7 @@ export class Binary {
   }
 
   dec2bin(decimal) {
-    var result = [];
+    let result = [];
     const stack = new Stack();
 
     for (let i = 0; decimal >= 1; i++) {
@@ -78,7 +77,12 @@ export class Binary {
         decimal = Math.floor(decimal / 2);
       }
     }
-    return Number(stack.dataset.reverse().join(''));
+
+    while (!stack.empty()) {
+      result.push(stack.get());
+    }
+
+    return result.join('');
   }
 
   dec2oct(decimal) {
@@ -88,7 +92,13 @@ export class Binary {
       stack.add(Math.floor(decimal % 8));
       decimal = decimal / 8;
     }
-    return Number(stack.dataset.reverse().join(''));
+
+    let result = [];
+    while (!stack.empty()) {
+      result.push(stack.get());
+    }
+
+    return result.join('');
   }
 
   dec2hex(decimal) {
@@ -123,6 +133,11 @@ export class Binary {
       decimal = decimal / 16;
     }
 
-    return String(stack.dataset.reverse().join(''));
+    let result = [];
+    while (!stack.empty()) {
+      result.push(stack.get());
+    }
+
+    return result.join('');
   }
 }

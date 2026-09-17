@@ -72,9 +72,24 @@ nav {
     }
   }
   & .links {
+    display: flex;
+    gap: 10px;
     & a {
       font-size: 18px;
       text-transform: capitalize;
+      text-decoration: none;
+      width: 150px;
+      height: 35px;
+      background: lightblue;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top: 2px solid black;
+      border-left: 2px solid black;
+      border-bottom: 2px solid rgb(105, 91, 91);
+      border-right: 2px solid rgb(105, 91, 91);
+      box-shadow: var(--shadow);
+      color: black;
     }
   }
 }
@@ -120,7 +135,7 @@ header {
         text-decoration: none;
         color: black;
         font-size: 20px;
-        font-family:  monospace;
+        font-family: monospace;
       }
       & .select-me {
         position: absolute;
@@ -435,6 +450,43 @@ main {
       width: 100%;
       height: 40px;
       background-color: lightblue;
+    }
+  }
+}
+
+.number-converter {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  & .input {
+    width: 48%;
+    flex-shrink: 0;
+    & input {
+      width: 200px;
+      height: 40px;
+      padding-left: 5px;
+      font-size: 15px;
+    }
+    & button {
+      width: 200px;
+      height: 40px;
+      background: var(--success);
+      color: var(--txt-pri);
+    }
+    & h2 {
+      background: lightblue;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-left: 5px;
+      margin-top: 10px;
+      color: black;
+      & span {
+        color: green;
+      }
     }
   }
 }

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Binary Converter</title>
+    <link rel="stylesheet" href="../css/app.css" />
+    <script src="../javascript/data-structures/Stack.js" async></script>
+    <script src="../javascript/numbers/numbers.js" async></script>
+  </head>
+  <body>
+    <nav>
+      <h1>(<span>●</span>'◡'<span>●</span>) <span>__ Stat</span>Matics</h1>
+      <div class="links">
+        <a href="https://github.com/kanakata/javascript-and-statistics-"
+          >github</a
+        >
+        <a href="/">back</a>
+      </div>
+    </nav>
+    <header>
+      <h1>^_~ Welcome to <span>Stat</span>Matics number converter</h1>
+      <p>
+        Use,
+        <a href="https://github.com/kanakata/javascript-and-statistics-"
+          >contribute</a
+        >
+        and grow ^_~.
+      </p>
+      <p>
+        <span
+          style="
+            background: red;
+            color: white;
+            padding: 4px;
+            border-radius: 2px;
+          "
+          >Notice !!
+        </span>
+        Feel free to fix (▀̿Ĺ̯▀̿ ̿) any bug you encounter.
+      </p>
+    </header>
+
+    <div class="number-converter">
+      <div class="dec2bin input">
+        <h1>Decimal to binary</h1>
+        <input type="text" id="dec2bin" placeholder="Enter decimal number" />
+        <button class="convertButton" data-type="dec2bin">
+          Convert to Binary
+        </button>
+        <h2>Binary Output: <span id="dec2bin-output"></span></h2>
+      </div>
+      <div class="dec2hex input">
+        <h1>Decimal to hexadecimal</h1>
+        <input type="text" id="dec2hex" placeholder="Enter decimal number" />
+        <button class="convertButton" data-type="dec2hex">
+          Convert to hexadecimal
+        </button>
+        <h2>Hexadecimal Output: <span id="dec2hex-output"></span></h2>
+      </div>
+      <div class="dec2octal input">
+        <h1>Decimal to octal</h1>
+        <input type="text" id="dec2octal" placeholder="Enter decimal number" />
+        <button class="convertButton" data-type="dec2octal">
+          Convert to octal
+        </button>
+        <h2>Octal Output: <span id="dec2octal-output"></span></h2>
+      </div>
+      <div class="bin2dec input">
+        <h1>Binary to decimal</h1>
+        <input type="text" id="bin2dec" placeholder="Enter binary number" />
+        <button class="convertButton" data-type="bin2dec">
+          Convert to Decimal
+        </button>
+        <h2>Decimal Output: <span id="bin2dec-output"></span></h2>
+      </div>
+      <div class="hex2dec input">
+        <h1>Hexadecimal to decimal</h1>
+        <input type="text" id="hex2dec" placeholder="Enter hexadecimal number" />
+        <button class="convertButton" data-type="hex2dec">
+          Convert to Decimal
+        </button>
+        <h2>Decimal Output: <span id="hex2dec-output"></span></h2>
+      </div>
+      <div class="oct2dec input">
+        <h1>Octal to decimal</h1>
+        <input type="text" id="oct2dec" placeholder="Enter octal number" />
+        <button class="convertButton" data-type="oct2dec">
+          Convert to Decimal
+        </button>
+        <h2>Decimal Output: <span id="oct2dec-output"></span></h2>
+      </div>
+    </div>
+
+    <script>
+      const [convertButtons] = [document.querySelectorAll('.convertButton')];
+      convertButtons.forEach((convertButton) => {
+        convertButton.addEventListener('click', () => {
+          const type = convertButton.dataset.type;
+          const value = parseInt(document.getElementById(type).value);
+          const output = document.getElementById(`${type}-output`);
+          const method = new Numbers();
+          switch (type) {
+            case 'dec2bin':
+              output.textContent = `${method.dec2bin(value)}`;
+              break;
+            case 'dec2hex':
+              output.textContent = `${method.dec2hex(value)}`;
+              break;
+            case 'dec2octal':
+              output.textContent = `${method.dec2oct(value)}`;
+              break;
+            case 'bin2dec':
+              output.textContent = `${method.bin2dec(value)}`;
+              break;
+            case 'hex2dec':
+              output.textContent = `${method.hex2dec(value)}`;
+              break;
+            case 'oct2dec':
+              output.textContent = `${method.oct2dec(value)}`;
+              break;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

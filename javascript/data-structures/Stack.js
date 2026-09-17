@@ -1,4 +1,4 @@
-export class Stack {
+class Stack {
   #dataset;
   constructor() {
     this.#dataset = [];
@@ -7,7 +7,7 @@ export class Stack {
     this.#dataset.push(data);
   }
   get() {
-    return this.#dataset.pop();
+    return this.#size != 0 ? this.#dataset.pop() : -1;
   }
   clear() {
     this.#dataset = [];
@@ -17,5 +17,8 @@ export class Stack {
   }
   empty() {
     return this.#dataset.length == 0 ? true : false;
+  }
+  #size() {
+    return this.#dataset.length;
   }
 }
