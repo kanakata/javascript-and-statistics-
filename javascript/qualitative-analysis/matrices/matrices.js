@@ -9,20 +9,29 @@ export class Matrices {
       columns: matrix[0].length,
     };
   }
+  #vector(matrix) {
+    // convert a 2D array to a 1D array
+    let vector = [];
+    for (let i = 0; i < matrix.length; i++) {
+      vector.push(...matrix[i]);
+    }
+    return vector;
+  }
+
   add(...matrices) {
     let result = [];
-    const matrice_count = matrices.length;
+    const matrix_count = matrices.length;
     const rows = matrices[0].length;
     const columns = matrices[0][0].length;
 
-    for (let i = 1; i < matrice_count; i++) {
+    for (let i = 1; i < matrix_count; i++) {
       if (matrices[i].length != rows || matrices[i][0].length != columns) {
         return console.log('invalid');
       }
     }
 
     let sum = {};
-    for (let i = 0; i < matrice_count; i++) {
+    for (let i = 0; i < matrix_count; i++) {
       let vector = [];
       for (let k = 0; k < rows; k++) {
         vector.push(...matrices[i][k]);
@@ -53,18 +62,18 @@ export class Matrices {
 
   subtraction(...matrices) {
     let result = [];
-    const matrice_count = matrices.length;
+    const matrix_count = matrices.length;
     const rows = matrices[0].length;
     const columns = matrices[0][0].length;
 
-    for (let i = 1; i < matrice_count; i++) {
+    for (let i = 1; i < matrix_count; i++) {
       if (matrices[i].length != rows || matrices[i][0].length != columns) {
         return console.log('invalid');
       }
     }
 
     let sum = {};
-    for (let i = 0; i < matrice_count; i++) {
+    for (let i = 0; i < matrix_count; i++) {
       let vector = [];
       for (let k = 0; k < rows; k++) {
         vector.push(...matrices[i][k]);
@@ -98,14 +107,14 @@ export class Matrices {
       return console.log('invalid');
     }
 
-    let matrice_two = [];
+    let matrix_two = [];
 
     for (let i = 0; i < matrices[1].length; i++) {
       for (let j = 0; j < matrices[1][0].length; j++) {
         if (i == 0) {
-          matrice_two[j] = [matrices[1][i][j]];
+          matrix_two[j] = [matrices[1][i][j]];
         } else {
-          matrice_two[j].push(matrices[1][i][j]);
+          matrix_two[j].push(matrices[1][i][j]);
         }
       }
     }
@@ -113,10 +122,10 @@ export class Matrices {
     let result = [];
     for (let k = 0; k < matrices[0].length; k++) {
       let multiplication = [];
-      for (let i = 0; i < matrice_two.length; i++) {
+      for (let i = 0; i < matrix_two.length; i++) {
         let computation = 0;
         for (let j = 0; j < matrices[0][0].length; j++) {
-          computation += matrices[0][k][j] * matrice_two[i][j];
+          computation += matrices[0][k][j] * matrix_two[i][j];
         }
         multiplication.push(computation);
       }
@@ -133,16 +142,21 @@ export class Matrices {
       result.push([]);
     }
 
-    for (let i = 0; i < this.#profile(result).rows; i++) {
-      let temp = 0;
-      for (let j = 0; j < profile.rows; j++) {
-        result[i].push(matrix[j][i]);
+    // transpose the matrix
+    for (let i = 0; i < profile.rows; i++) {
+      for (let j = 0; j < profile.columns; j++) {
+        result[j][i] = matrix[i][j];
       }
     }
 
     return result;
   }
 
+  /**
+   * calculates the determinant of a matrix using the artisan method for 2x2 and 3x3 matrices
+   * @param {*} matrix
+   * @returns
+   */
   determinant(matrix) {
     const profile = this.#profile(matrix);
     if (profile.rows == profile.columns) {
@@ -155,11 +169,37 @@ export class Matrices {
             determinant -= matrix[i][i - 1] * matrix[i - 1][i];
           }
         }
-        console.log(determinant);
+        return determinant;
+      } else if (profile.rows == 3 && profile.columns == 3) {
+        const art = [];
+
+        // artisan method for calculating the determinant of a 3x3 matrix add the first two columns to the right of the matrix
+        for (let i = 0; i < profile.rows; i++) {
+          art.push([...matrix[i], matrix[i][0], matrix[i][1]]);
+        }
+
+        console.log(art);
+
+        let primary = 0;
+        let secondary = 0;
+
+        // artisan method for calculating the determinant of a 3x3 matrix
+        for (let i = 0; i < art.length; i++) {
+          primary += art[0][i] * art[1][i + 1] * art[2][i + 2];
+          secondary += art[0][i + 2] * art[1][i + 1] * art[2][i];
+        }
+
+        console.log(primary - secondary);
       }
     }
   }
 
+  /**
+   * divides a matrix by a scalar
+   * @param {*} matrix
+   * @param {*} divider
+   * @returns
+   */
   divide(matrix, divider) {
     const profile = this.#profile(matrix);
     let temp = [];
@@ -175,6 +215,8 @@ export class Matrices {
     let result = [];
     let start = 0;
     let end = profile.columns;
+
+    // convert the temp2 array back to a 2D array
     for (let i = 0; i < profile.rows; i++) {
       result.push(temp2.slice(start, end));
       start += profile.columns;
@@ -183,4 +225,23 @@ export class Matrices {
 
     return result;
   }
+
+  inverse(matrix) {
+    const profile = this.#profile(matrix);
+    const inverse = this.determinant(matrix);
+
+    const result = []
+
+    for (let i = 0; i < profile.rows; i++) {
+      let temp = [];
+      for (let j = 0; j < profile.columns; j++) {
+        temp.push(matrix[i][j] / inverse);
+      }
+      result.push(temp);
+    }
+
+    return result;
+  }
+
+  
 }
