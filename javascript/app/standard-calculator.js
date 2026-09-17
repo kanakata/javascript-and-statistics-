@@ -1,14 +1,12 @@
 import { Stack } from '../data-structures/Stack.js';
 
-let stack = new Stack();
-let result_display = document.querySelector('.display .result-display .result');
-const result_display_meta = document.querySelector(
-  '.display .result-display .meta'
-);
-let expression_display = document.querySelector(
-  '.display .expression-display .expression'
-);
-const inputs = document.querySelectorAll('.inputs .input');
+let [stack, result_display, result_display_meta, expression_display, inputs] = [
+  new Stack(),
+  document.querySelector('.display .result-display .result'),
+  document.querySelector('.display .result-display .meta'),
+  document.querySelector('.display .expression-display .expression'),
+  document.querySelectorAll('.inputs .input'),
+];
 
 window.addEventListener('keydown', (event) => {
   const keyboard_inputs = [
@@ -30,17 +28,25 @@ window.addEventListener('keydown', (event) => {
   if (keyboard_inputs.indexOf(event.key) != -1) {
     result_display.textContent = event.key;
     expression_display.textContent += event.key;
-  } else if (event.key == 'Backspace' || event.key == 'Delete') {
-    let expression = expression_display.textContent.split('');
-    expression.pop();
-    expression_display.textContent = expression.join('');
-  } else if (event.key == 'Enter') {
-    result_display_meta.textContent = 'answer';
-    result_display.textContent = eval(expression_display.textContent);
-    storage.setData('result_display', result_display.textContent);
-    storage.setData('last-item', '=');
-  } else if (event.key == 'Escape') {
-    window.history.back();
+  } else {
+    switch (event.key) {
+      case 'Backspace' || 'Delete':
+        let expression = expression_display.textContent.split('');
+        expression.pop();
+        expression_display.textContent = expression.join('');
+        break;
+
+      case 'Enter':
+        result_display_meta.textContent = 'answer';
+        result_display.textContent = eval(expression_display.textContent);
+        storage.setData('result_display', result_display.textContent);
+        storage.setData('last-item', '=');
+        break;
+
+      case 'Escape':
+        window.history.back();
+        break;
+    }
   }
 });
 
@@ -54,7 +60,9 @@ inputs.forEach((option) => {
         stack.add(square);
         break;
       case 'root':
-        result_display.textContent = Math.sqrt(expression_display.textContent);
+        const square_root = Math.sqrt(expression_display.textContent);
+        result_display.textContent = square_root;
+        stack.add(square_root);
         break;
       case 'fact':
         let factorial = 1;
@@ -77,6 +85,7 @@ inputs.forEach((option) => {
         break;
       case 'C':
         result_display.textContent = '';
+        stack.clear();
         break;
       case 'CE':
         expression_display.textContent = result_display.textContent = '';

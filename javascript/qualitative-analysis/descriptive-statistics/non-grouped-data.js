@@ -1,4 +1,4 @@
-class Statistics {
+class NonGrouped {
   #data;
   constructor(data) {
     this.#data = data;

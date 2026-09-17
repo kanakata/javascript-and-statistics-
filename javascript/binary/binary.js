@@ -1,4 +1,4 @@
-import { Stack } from '../utils/data-stractures.js';
+import { Stack } from '../utils/data-structures.js';
 
 export class Binary {
   toDecUtil(ns, b) {
@@ -126,5 +126,3 @@ export class Binary {
     return String(stack.dataset.reverse().join(''));
   }
 }
-
-

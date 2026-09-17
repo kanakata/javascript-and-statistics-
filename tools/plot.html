@@ -3,55 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      body {
-        margin: 0px;
-        padding: 0px;
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      main {
-        height: 100vh;
-        width: 100%;
-        display: flex;
-        & .graph {
-          width: 70%;
-          height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          & #canvas {
-            border: 1px solid black;
-          }
-        }
-        & .data {
-          width: 30%;
-          & ol {
-            padding-left: 20px;
-            & li {
-              font-size: 18px;
-            }
-          }
-        }
-      }
-      .dialogue {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        backdrop-filter: blur(20px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    </style>
+    <title>stathematics-plot</title>
+    <link rel="stylesheet" href="../css/app.css" />
+    <style></style>
     <script src="../javascript/plot/plt.js"></script>
-    <script src="../javascript/statistics/non-grouped-data.js"></script>
+    <script src="../javascript/qualitative-analysis/descriptive-statistics/non-grouped-data.js"></script>
   </head>
   <body>
     <main>
@@ -59,67 +15,124 @@
         <canvas id="canvas"></canvas>
       </div>
       <div class="data">
-        <button id="add-data">Add Data</button>
-        <h1>Data Summary</h1>
+        <button onclick="window.location.href = '/'">Back</button>
+        <button onclick="dialog()">Add Data</button>
+        <h1>Your Data Summary</h1>
         <ol></ol>
       </div>
     </main>
     <script>
-      document.getElementById('add-data').addEventListener('click', () => {
-        dialogue();
+      window.addEventListener('load', () => {
+        data_summary();
+        plot();
       });
 
-      function dialogue() {
-        const dialogue_box = document.createElement('div');
-        const options = ['grouped data', 'ungrouped data'];
+      function dialog() {
+        const dialog_box = document.createElement('div');
+        const options = ['grouped data', 'ungrouped data', 'close'];
         options.forEach((Option) => {
-          let dialogue = document.createElement('button');
-          dialogue.textContent = Option;
-          dialogue_box.appendChild(dialogue);
+          let dialog = document.createElement('button');
+          dialog.textContent = Option;
+          switch (Option) {
+            case 'close':
+              dialog.setAttribute('onclick', 'close_dialog()');
+              dialog.setAttribute('class', 'close');
+              break;
+            case 'ungrouped data':
+              dialog.setAttribute('onclick', 'ungrouped_form()');
+              break;
+          }
+
+          dialog_box.appendChild(dialog);
         });
-        dialogue_box.setAttribute('class', 'dialogue');
-        document.body.appendChild(dialogue_box);
+        dialog_box.setAttribute('class', 'dialog open');
+        document.body.appendChild(dialog_box);
       }
-      const canvas = document.getElementById('canvas');
-      const data_area = document.querySelector('.data ol');
-      const plt = new Plt(canvas, {
-        type: 'bar',
-        data: [97, 80, 91, 87, 86, 93, 84, 81],
-        // bar_colors: ['lightblue', 'lightgreen', "lightyellow", "white", "grey", "orange", "red", "green"],
-        data_labels: ['math', 'kis', 'phy', 'eng', 'bus', 'chem', 'geo', 'bio'],
-        // data: [97, 80, 91],
-        // data_labels: ['math', 'kis', 'phy'],
-        yScale: 10,
-        grid: true
-      });
 
-      const statistics = new Statistics([97, 80, 91, 87, 86, 93, 84, 81]);
-      const data = [
-        statistics.arithmeticMean(),
-        statistics.geometricMean(),
-        statistics.harmonicMean(),
-        statistics.median(),
-        statistics.mode(),
-        statistics.range(),
-        statistics.variance(),
-        statistics.standardDeviation(),
-      ];
+      function length(parent) {
+        const length = document.createElement('input');
+        length.setAttribute('placeholder', 'length');
+        length.setAttribute('type', 'number');
+        length.setAttribute('id', 'ungrouped-length');
+        parent.appendChild(length);
+        const submit = document.createElement('button');
+        submit.textContent = 'submit length';
+        submit.setAttribute('onclick', 'ungrouped_proceed()');
+        parent.appendChild(submit);
+      }
 
-      const li_labels = [
-        'Arithmetic Mean: ',
-        'Geometric Mean: ',
-        'Harmonic Mean: ',
-        'Median: ',
-        'Mode: ',
-        'Range: ',
-        'Variance: ',
-        'Standard Deviation: ',
-      ];
+      function ungrouped_form() {
+        document.querySelector('.dialog').remove();
+        const form_holder = document.createElement('div');
+        form_holder.setAttribute('id', 'ungrouped-length');
+        const inputs = ['length', 'data', 'labels', 'bar-colors'];
+        const form = document.createElement('form');
+        length(form);
+        form_holder.appendChild(form)
+        document.body.appendChild(form_holder);
+      }
 
-      for (let i = 0; i < data.length; i++) {
-        let list = document.createElement('li');
-        list.textContent = li_labels[i] + data[i];
-        data_area.appendChild(list);
+      function ungrouped_proceed() {
+        alert(document.getElementById('ungrouped-length').value);
+      }
+
+      function close_dialog() {
+        document.querySelector('.dialog').remove();
+      }
+
+      function plot() {
+        const canvas = document.getElementById('canvas');
+
+        const plt = new Plt(canvas, {
+          type: 'bar',
+          data: [97, 80, 91, 87, 86, 93, 84, 81],
+          // bar_colors: ['lightblue', 'lightgreen', "lightyellow", "white", "grey", "orange", "red", "green"],
+          data_labels: [
+            'math',
+            'kis',
+            'phy',
+            'eng',
+            'bus',
+            'chem',
+            'geo',
+            'bio',
+          ],
+          yScale: 10,
+          grid: true,
+        });
+      }
+
+      function data_summary() {
+        const statistics = new NonGrouped([97, 80, 91, 87, 86, 93, 84, 81]);
+        const data_area = document.querySelector('.data ol');
+
+        const data = [
+          statistics.arithmeticMean(),
+          statistics.geometricMean(),
+          statistics.harmonicMean(),
+          statistics.median(),
+          statistics.mode(),
+          statistics.range(),
+          statistics.variance(),
+          statistics.standardDeviation(),
+        ];
+
+        const li_labels = [
+          'Arithmetic Mean: ',
+          'Geometric Mean: ',
+          'Harmonic Mean: ',
+          'Median: ',
+          'Mode: ',
+          'Range: ',
+          'Variance: ',
+          'Standard Deviation: ',
+        ];
+
+        for (let i = 0; i < data.length; i++) {
+          let list = document.createElement('li');
+          list.textContent = li_labels[i] + data[i];
+          data_area.appendChild(list);
+        }
       }
     </script>
   </body>

@@ -1,4 +1,4 @@
-export class Grouped {
+class Grouped {
   #data;
   #frequencies;
   constructor(data, frequencies) {

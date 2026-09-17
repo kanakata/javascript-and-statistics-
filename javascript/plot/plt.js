@@ -219,7 +219,7 @@ class Plt {
         this.#canvas_height - this.#padding
       );
       this.#context.stroke();
-      console.log(this.#object.bar_colors);
+  
       if (
         this.#object.bar_colors !== null ||
         this.#object.bar_colors !== undefined

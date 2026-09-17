@@ -2,51 +2,35 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="./css/calculator.css" />
-    <title>Calculator</title>
-    <style>
-      nav {
-        width: 100%;
-        height: 60px;
-      }
-      .app {
-        width: 100%;
-        & .links {
-          display: flex;
-          gap: 10px;
-          & .link {
-            width: 200px;
-            height: 40px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid black;
-            & a {
-              width: 100%;
-              height: 100%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              text-decoration: none;
-            }
-          }
-        }
-      }
-    </style>
+    <title>statMatics</title>
+    <link rel="stylesheet" href="./css/app.css" />
   </head>
-
   <body>
     <nav>
-      <h1>Calculator</h1>
+      <h1>(<span>●</span>'◡'<span>●</span>) <span>__ Stat</span>Matics</h1>
+      <div class="links">
+        <a href="">github</a>
+      </div>
     </nav>
-    <div class="app">
+    <header>
+      <h1>^_~ Welcome to <span>Stat</span>Matics.</h1>
+      <p>Use, <a href="">contribute</a> and grow ^_~.</p>
+      <p><span style="background: red; color: white;padding: 4px; border-radius: 2px;">Notice !! </span> Feel free to fix (▀̿Ĺ̯▀̿ ̿) any bug you encounter.</p>
+    </header>
+    <main class="app">
       <div class="links">
         <div class="link">
           <a href="./tools/calculator.html">Standard Calculator</a>
         </div>
+
         <div class="link">
           <a href="./tools/binary.html">Binary Calculator</a>
         </div>
+
+        <div class="link">
+          <a href="./tools/binary-converter.html">Binary converter</a>
+        </div>
+
         <div class="link">
           <a href="./tools/graph.html">Graphing</a>
         </div>
@@ -54,7 +38,58 @@
         <div class="link">
           <a href="./tools/plot.html">Ploting</a>
         </div>
+
+        <div class="link">
+          <a href="./tools/descriptive-statistics.html"
+            >Descriptive statistics</a
+          >
+        </div>
+
+        <div class="link">
+          <a href="./tools/plot.html">Find out your birth day</a>
+        </div>
       </div>
-    </div>
+    </main>
+    <script>
+      window.addEventListener('load', () => {
+        const links_text = document.querySelectorAll('.links .link a');
+        links_text.forEach((element) => {
+          let temp = element.textContent;
+          element.textContent = '';
+
+          let count = 0;
+          let type = setInterval(() => {
+            if (count == temp.length) {
+              clearInterval(type);
+              element.style.cursor = 'pointer';
+              element.setAttribute('disabled', 'false');
+              element.setAttribute('title', 'loaded');
+            } else {
+              element.textContent = element.textContent + temp[count++];
+              element.style.cursor = 'progress';
+              element.setAttribute('disabled', 'true');
+              element.setAttribute('title', 'still loading');
+            }
+          }, 50);
+        });
+      });
+      const links = document.querySelectorAll('.links .link');
+      links.forEach((link) => {
+        link.addEventListener('mouseover', () => {
+          const select = document.createElement('div');
+          select.textContent = 'Select Me (⌐■_■)';
+          select.setAttribute('class', 'select-me');
+          link.appendChild(select);
+        });
+      });
+      links.forEach((link) => {
+        link.addEventListener('mouseleave', () => {
+          let select_me = document.querySelectorAll('.select-me');
+          select_me.forEach((element) => {
+            element.remove();
+          });
+        });
+      });
+    </script>
   </body>
 </html>

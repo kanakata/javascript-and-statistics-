@@ -3,12 +3,14 @@ export class Matrices {
     [1, 0],
     [0, 1],
   ];
+
   #profile(matrix) {
     return {
       rows: matrix.length,
       columns: matrix[0].length,
     };
   }
+
   #vector(matrix) {
     // convert a 2D array to a 1D array
     let vector = [];
@@ -102,36 +104,26 @@ export class Matrices {
     return result;
   }
 
-  multiply(...matrices) {
-    if (matrices[0][0].length != matrices[1].length) {
+  multiply(matrix_one, matrix_two) {
+    const profile_one = this.#profile(matrix_one);
+    const profile_two = this.#profile(matrix_two);
+
+    if (profile_one.columns != profile_two.rows) {
       return console.log('invalid');
     }
 
-    let matrix_two = [];
-
-    for (let i = 0; i < matrices[1].length; i++) {
-      for (let j = 0; j < matrices[1][0].length; j++) {
-        if (i == 0) {
-          matrix_two[j] = [matrices[1][i][j]];
-        } else {
-          matrix_two[j].push(matrices[1][i][j]);
-        }
-      }
-    }
-
     let result = [];
-    for (let k = 0; k < matrices[0].length; k++) {
-      let multiplication = [];
-      for (let i = 0; i < matrix_two.length; i++) {
-        let computation = 0;
-        for (let j = 0; j < matrices[0][0].length; j++) {
-          computation += matrices[0][k][j] * matrix_two[i][j];
+    for (let i = 0; i < profile_one.rows; i++) {
+      result[i] = [];
+      for (let j = 0; j < profile_two.columns; j++) {
+        result[i][j] = 0;
+        for (let k = 0; k < profile_one.columns; k++) {
+          result[i][j] += matrix_one[i][k] * matrix_two[k][j];
         }
-        multiplication.push(computation);
       }
-      result.push(multiplication);
     }
-    console.log(result);
+
+    return result;
   }
 
   transpose(matrix) {
@@ -230,7 +222,7 @@ export class Matrices {
     const profile = this.#profile(matrix);
     const inverse = this.determinant(matrix);
 
-    const result = []
+    const result = [];
 
     for (let i = 0; i < profile.rows; i++) {
       let temp = [];
@@ -243,5 +235,15 @@ export class Matrices {
     return result;
   }
 
-  
+  markov_chain(initial_state, transition_matrix, steps) {
+    let result = [];
+    for (let i = 0; i < steps; i++) {
+      initial_state = this.multiply(initial_state, transition_matrix);
+    }
+    return initial_state;
+  }
+
+  markov_chain_equilibrium(transition_matrix) {
+    return result;
+  }
 }

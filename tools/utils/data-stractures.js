@@ -24,7 +24,7 @@ export class Stack {
   }
 }
 
-class Queue {
+export class Queue {
   #dataset = [];
   #count = 0;
   print() {
@@ -47,7 +47,7 @@ class Queue {
   }
 }
 
-class PriorityQueue {
+export class PriorityQueue {
   #dataset = [];
   print() {
     return this.#dataset;
@@ -84,7 +84,7 @@ class PriorityQueue {
   }
 }
 
-class Set {
+export class Set {
   #dataset = [];
 
   values() {
@@ -119,6 +119,28 @@ class Set {
   union(set) {}
 }
 
-class Node{}
+export class HashTable {
+  constructor(params) {
+    this.table = new Array(137);
+    this.size = 0;
+  }
+  hash(key) {
+    const H = 37;
+    let total = 0;
+    for (let i = 0; i < key.length; i++) {
+      total += H * total + key.charCodeAt(i);
+    }
+    return total % this.table.length;
+  }
 
-class BST {}
+  add(key, value) {
+    const index = this.hash(key);
+    
+    this.size++;
+  }
+  delete(key) {
+    const index = this.hash(key);
+    let current = this.table[index];
+    return false;
+  }
+}

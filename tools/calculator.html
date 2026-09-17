@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="../css/app.css" />
-    <script src="../javascript/app/standard-calculator.js" type="module" async></script>
+    <script
+      src="../javascript/app/standard-calculator.js"
+      type="module"
+      async
+    ></script>
     <script src="../javascript/app/app.js" defer></script>
   </head>
   <body>
@@ -22,32 +26,38 @@
           </div>
         </div>
         <div class="inputs">
-          <div data-value="%" class="input">%</div>
-          <div data-value="CE" class="input">CE</div>
-          <div data-value="C" class="input">C</div>
-          <div data-value="del" class="input">
+          <div data-value="%" class="input" title="percentage">%</div>
+          <div data-value="CE" class="input" title="reset">CE</div>
+          <div data-value="C" class="input" title="clear output">C</div>
+          <div data-value="del" class="input" title="clear output">
             <img src="../assets/clear.png" alt="clear-input" />
           </div>
-          <div data-value="root" class="input">x½</div>
-          <div data-value="pow" class="input">x&sup2;</div>
-          <div data-value="fact" class="input">x!</div>
-          <div data-value="/" class="input">&divide;</div>
-          <div data-value="7" class="input num">7</div>
-          <div data-value="8" class="input num">8</div>
-          <div data-value="9" class="input num">9</div>
-          <div data-value="*" class="input">&times;</div>
-          <div data-value="4" class="input num">4</div>
-          <div data-value="5" class="input num">5</div>
-          <div data-value="6" class="input num">6</div>
-          <div data-value="-" class="input">-</div>
-          <div data-value="1" class="input num">1</div>
-          <div data-value="2" class="input num">2</div>
-          <div data-value="3" class="input num">3</div>
-          <div data-value="+" class="input">+</div>
-          <div data-value="" class="input num"></div>
-          <div data-value="0" class="input num">0</div>
-          <div data-value="." class="input num">.</div>
-          <div data-value="=" class="input num">=</div>
+          <div data-value="root" class="input" title="square root">√</div>
+          <div data-value="pow" class="input" title="square">x&sup2;</div>
+          <div data-value="fact" class="input" title="factorial">x!</div>
+          <div data-value="/" class="input" title="divide">&divide;</div>
+          <div data-value="7" class="input num" title="seven">7</div>
+          <div data-value="8" class="input num" title="eight">8</div>
+          <div data-value="9" class="input num" title="nine">9</div>
+          <div data-value="*" class="input" title="multiplication">&times;</div>
+          <div data-value="4" class="input num" title="four">4</div>
+          <div data-value="5" class="input num" title="5">5</div>
+          <div data-value="6" class="input num" title="six">6</div>
+          <div data-value="⁻" class="input" title="subtraction">-</div>
+          <div data-value="1" class="input num" title="one">1</div>
+          <div data-value="2" class="input num" title="two">2</div>
+          <div data-value="3" class="input num" title="three">3</div>
+          <div data-value="+" class="input" title="addition">+</div>
+          <div
+            onclick="window.history.back()"
+            class="input"
+            style="background: red;" title="back button"
+          >
+            Back
+          </div>
+          <div data-value="0" class="input num" title="zero">0</div>
+          <div data-value="." class="input num" title="decimal">.</div>
+          <div data-value="=" class="input num" title="equals">=</div>
         </div>
       </main>
     </div>
