@@ -1,5 +1,3 @@
-import { Stack } from '../data-structures/Stack.js';
-
 let [stack, result_display, result_display_meta, expression_display, inputs] = [
   new Stack(),
   document.querySelector('.display .result-display .result'),
