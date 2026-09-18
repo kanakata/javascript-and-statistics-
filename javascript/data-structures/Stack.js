@@ -3,6 +3,9 @@ class Stack {
   constructor() {
     this.#dataset = [];
   }
+  data() {
+    return this.#dataset.toString();
+  }
   add(data) {
     this.#dataset.push(data);
   }

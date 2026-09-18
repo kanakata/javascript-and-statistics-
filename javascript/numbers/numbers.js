@@ -1,18 +1,16 @@
 class Numbers {
-  toDecUtil(ns, b) {
-    const a = String(ns);
+  toDecUtil(number, base) {
     const stack = new Stack();
-    var result = 0;
-    var base = b;
+    const a = String(number);
+    let result = 0;
+
     for (let i = 0; i < a.length; i++) {
       stack.add(Number(a[i]));
     }
 
-    for (let i = 0; i < a.length; i++) {
-      const value = stack.get();
-      if (value == 1) {
-        result += Math.pow(base, i);
-      }
+    let count = 0;
+    while (!stack.empty()) {
+      result += Math.pow(base, count++) * Number(stack.get());
     }
 
     return result;
@@ -27,15 +25,15 @@ class Numbers {
   }
 
   hex2dec(hexadecimal) {
-    const hex = hexadecimal;
     const stack = new Stack();
-    var result = 0;
+    let result = 0;
     var base = 16;
-    for (let i = 0; i < hex.length; i++) {
-      stack.add(hex[i]);
+
+    for (let i = 0; i < hexadecimal.length; i++) {
+      stack.add(hexadecimal[i]);
     }
 
-    for (let i = 0; i < hex.length; i++) {
+    for (let i = 0; i < hexadecimal.length; i++) {
       var value = stack.get().toUpperCase();
       switch (value) {
         case 'A':

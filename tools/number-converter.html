@@ -19,7 +19,9 @@
       </div>
     </nav>
     <header>
-      <h1>^_~ Welcome to <span>Stat</span>Matics number converter</h1>
+      <h1>
+        ^_~ Welcome to <span>Stat</span>Matics <span>number converter</span>
+      </h1>
       <p>
         Use,
         <a href="https://github.com/kanakata/javascript-and-statistics-"
@@ -76,7 +78,11 @@
       </div>
       <div class="hex2dec input">
         <h1>Hexadecimal to decimal</h1>
-        <input type="text" id="hex2dec" placeholder="Enter hexadecimal number" />
+        <input
+          type="text"
+          id="hex2dec"
+          placeholder="Enter hexadecimal number"
+        />
         <button class="convertButton" data-type="hex2dec">
           Convert to Decimal
         </button>
@@ -97,7 +103,7 @@
       convertButtons.forEach((convertButton) => {
         convertButton.addEventListener('click', () => {
           const type = convertButton.dataset.type;
-          const value = parseInt(document.getElementById(type).value);
+          const value = document.getElementById(type).value;
           const output = document.getElementById(`${type}-output`);
           const method = new Numbers();
           switch (type) {

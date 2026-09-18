@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>date</title>
+    <link rel="stylesheet" href="../css/app.css" />
+  </head>
+  <body>
+    <nav>
+      <h1>(<span>●</span>'◡'<span>●</span>) <span>__ Stat</span>Matics</h1>
+      <div class="links">
+        <a href="https://github.com/kanakata/javascript-and-statistics-"
+          >github</a
+        >
+        <a href="/">Back</a>
+      </div>
+    </nav>
+    <header>
+      <h1>^_~ Welcome to <span>Stat</span>Matics <span>date finder</span></h1>
+      <p>
+        Use,
+        <a href="https://github.com/kanakata/javascript-and-statistics-"
+          >contribute</a
+        >
+        and grow ^_~.
+      </p>
+      <p>
+        <span
+          style="
+            background: red;
+            color: white;
+            padding: 4px;
+            border-radius: 2px;
+          "
+          >Notice !!
+        </span>
+        Feel free to fix (▀̿Ĺ̯▀̿ ̿) any bug you encounter.
+      </p>
+    </header>
+    <div class="number-converter">
+      <div class="input">
+        <h1>Find out your birth day</h1>
+        <input type="text" placeholder="Enter the year" id="year" />
+        <input type="text" placeholder="Enter the month" id="month" />
+        <input type="text" placeholder="Enter the day" id="day" />
+        <button class="find">Find day</button>
+        <h2>You were born on a: <span id="day-output"></span></h2>
+      </div>
+    </div>
+    <script>
+      const [find, year, month, day] = [
+        document.querySelector('.find'),
+        document.getElementById('year').value,
+        document.getElementById('month').value,
+        document.getElementById('day').value,
+      ];
+      find.addEventListener('click', () => {
+        let date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+        document.getElementById('day-output').textContent = date.toDateString();
+      });
+    </script>
+  </body>
+</html>
