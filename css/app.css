@@ -2,7 +2,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 :root {
@@ -102,7 +103,7 @@ header {
     font-size: 25px;
     & span {
       color: rgb(66, 150, 178);
-      font-family: "broadway";
+      font-family: 'broadway';
     }
   }
   & p {
@@ -299,49 +300,40 @@ main {
   }
 }
 
-.number-converter {
-  width: 100%;
+.data-form {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  backdrop-filter: blur(10px);
+  transform: translate(-50%, -50%);
+  min-width: 500px;
+  max-height: 500px;
+  overflow-y: scroll;
   padding: 10px;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  & .input {
-    width: 48%;
-    flex-shrink: 0;
-    box-shadow: var(--shadow);
-    border-radius: 5px;
-    padding: 30px 5px;
-    border: 1px solid lightblue;
-    & input {
-      width: 200px;
-      height: 40px;
-      padding-left: 5px;
-      font-size: 15px;
-      margin: 2px;
-    }
-    & button {
-      width: 200px;
-      height: 40px;
-      background: var(--success);
-      color: var(--txt-pri);
-    }
-    & h2 {
-      background: lightblue;
-      height: 45px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding-left: 5px;
-      margin-top: 10px;
-      color: black;
-      & span {
-        color: green;
-      }
-    }
-    & h1 {
-      padding: 0px 0px 10px 0px;
-    }
+  border: 1px solid black;
+  gap: 10px;
+  & label{
+    display: flex;
+    align-items: center;
+    width: 100;
+    gap: 10px;
+  }
+  & input{
+    height: 40px;
+    width: 100%;
+  }
+  & input[type="color"] {
+    width: 50px;
+    padding: 0px;
+  }
+  & button {
+    height: 40px;
+    background-color: lightblue;
+    cursor: pointer;
   }
 }
 

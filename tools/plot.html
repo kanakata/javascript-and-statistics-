@@ -10,7 +10,6 @@
     <script src="../javascript/qualitative-analysis/descriptive-statistics/non-grouped-data.js"></script>
   </head>
   <body>
-    
     <main>
       <div class="graph">
         <canvas id="canvas"></canvas>
@@ -22,10 +21,26 @@
         <ol></ol>
       </div>
     </main>
+
+    <template id="data-form-template">
+      <form class="data-form">
+        <button type="submit" onclick="ungrouped_process()">Submit</button>
+        <button type="button" onclick="close_dialog()">close</button>
+      </form>
+    </template>
+
+    <template id="data-length-template">
+      <form class="data-form">
+        <label for="length">Length:</label>
+        <input type="number" id="length" name="length" required />
+        <button type="submit" onclick="ungrouped_proceed()">Submit</button>
+      </form>
+    </template>
+
     <script>
       window.addEventListener('load', () => {
         data_summary();
-        plot();
+        plot(document.getElementById('canvas'));
       });
 
       function dialog() {
@@ -64,31 +79,61 @@
 
       function ungrouped_form() {
         document.querySelector('.dialog').remove();
-        const form_holder = document.createElement('div');
-        form_holder.setAttribute('id', 'ungrouped-length');
-        const inputs = ['length', 'data', 'labels', 'bar-colors'];
-        const form = document.createElement('form');
-        length(form);
-        form_holder.appendChild(form)
+        const form_holder = document
+          .getElementById('data-length-template')
+          .content.cloneNode(true);
         document.body.appendChild(form_holder);
       }
 
+      function close_dialog() {
+        document.querySelector('.data-form').remove();
+      }
+
       function ungrouped_proceed() {
-        alert(document.getElementById('ungrouped-length').value);
+        const length = document.getElementById('length').value;
+        document.querySelector('.data-form').remove();
+        const form_holder = document
+          .getElementById('data-form-template')
+          .content.cloneNode(true);
+        for (let i = 0; i < length; i++) {
+          const label = document.createElement('label');
+          const input = document.createElement('input');
+          input.setAttribute('placeholder', `data ${length - i}`);
+          input.setAttribute('type', 'number');
+          const color = document.createElement('input');
+          color.setAttribute('type', 'color');
+          const label_text = document.createElement('input');
+          label_text.setAttribute('placeholder', `label ${length - i}`);
+          label_text.setAttribute('type', 'text');
+
+          label.appendChild(color);
+          label.appendChild(input);
+          label.appendChild(label_text);
+          form_holder.querySelector('.data-form').prepend(label);
+        }
+        document.body.appendChild(form_holder);
       }
 
       function close_dialog() {
         document.querySelector('.dialog').remove();
       }
 
-      function plot() {
-        const canvas = document.getElementById('canvas');
-
+      function plot(graph, data, labels, colors) {
+        const canvas = graph ?? document.getElementById('canvas');
         const plt = new Plt(canvas, {
           type: 'bar',
-          data: [97, 80, 91, 87, 86, 93, 84, 81],
-          // bar_colors: ['lightblue', 'lightgreen', "lightyellow", "white", "grey", "orange", "red", "green"],
-          data_labels: [
+          data: data ?? [97, 80, 91, 87, 86, 93, 84, 81],
+          bar_colors: colors ?? [
+            'lightblue',
+            'lightgreen',
+            'lightyellow',
+            'white',
+            'grey',
+            'orange',
+            'red',
+            'green',
+          ],
+          data_labels: labels ?? [
             'math',
             'kis',
             'phy',
@@ -101,6 +146,42 @@
           yScale: 10,
           grid: true,
         });
+      }
+
+      function ungrouped_process() {
+        document.getElementById('canvas').remove();
+        const data = [];
+        const colors = [];
+        const labels = [];
+        const inputs = document.querySelectorAll(
+          '.data-form input[type="number"]'
+        );
+        const color_inputs = document.querySelectorAll(
+          '.data-form input[type="color"]'
+        );
+
+        const label_inputs = document.querySelectorAll(
+          '.data-form input[type="text"]'
+        );
+
+        inputs.forEach((input) => {
+          data.push(Number(input.value));
+        });
+
+        color_inputs.forEach((color_input) => {
+          colors.push(color_input.value);
+        });
+
+        label_inputs.forEach((label) => {
+          labels.push(label.value);
+        });
+
+        const canvas = document.createElement('canvas');
+        canvas.setAttribute('id', 'canvas');
+        document.body.appendChild(canvas);
+        plot(canvas, data, labels, colors);
+
+        close_dialog();
       }
 
       function data_summary() {
