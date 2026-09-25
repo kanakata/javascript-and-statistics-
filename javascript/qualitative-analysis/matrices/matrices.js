@@ -1,4 +1,5 @@
-export class Matrices {
+class Matrices {
+  
   #identity_matrix = [
     [1, 0],
     [0, 1],
@@ -165,23 +166,19 @@ export class Matrices {
       } else if (profile.rows == 3 && profile.columns == 3) {
         const art = [];
 
-        // artisan method for calculating the determinant of a 3x3 matrix add the first two columns to the right of the matrix
         for (let i = 0; i < profile.rows; i++) {
           art.push([...matrix[i], matrix[i][0], matrix[i][1]]);
         }
 
-        console.log(art);
-
         let primary = 0;
         let secondary = 0;
 
-        // artisan method for calculating the determinant of a 3x3 matrix
         for (let i = 0; i < art.length; i++) {
           primary += art[0][i] * art[1][i + 1] * art[2][i + 2];
           secondary += art[0][i + 2] * art[1][i + 1] * art[2][i];
         }
 
-        console.log(primary - secondary);
+        return primary - secondary;
       }
     }
   }

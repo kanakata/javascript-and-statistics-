@@ -76,7 +76,7 @@ nav {
   & .links {
     display: flex;
     gap: 10px;
-    & a {
+    & a, button {
       font-size: 18px;
       text-transform: capitalize;
       text-decoration: none;
@@ -92,6 +92,7 @@ nav {
       border-right: 2px solid rgb(105, 91, 91);
       box-shadow: var(--shadow);
       color: black;
+      cursor: pointer;
     }
   }
 }
@@ -112,7 +113,7 @@ header {
   }
 }
 
-.app {
+.app, .graph {
   width: 100%;
   padding: 10px;
   & .links {
@@ -185,7 +186,7 @@ header {
         color: var(--txt-pri);
         text-transform: capitalize;
       }
-      & .expression-display {
+      & .expression-display, .result-display {
         height: 50%;
         width: 100%;
         display: flex;
@@ -194,27 +195,12 @@ header {
         padding: 0px 10px 10px 10px;
         background: var(--bg-sec);
         box-shadow: var(--shadow);
-        border-radius: 5px;
-        & #expression {
+        & #expression, .result {
           font-size: 20px;
           color: var(--txt-pri);
         }
       }
-      & .result-display {
-        height: 50%;
-        width: 100%;
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        padding: 0px 10px;
-        background: var(--bg-sec);
-        box-shadow: var(--shadow);
-        border-radius: 5px;
-        & .result {
-          font-size: 50px;
-          color: var(--txt-pri);
-        }
-      }
+    
     }
     & .inputs {
       width: 100%;
@@ -227,7 +213,6 @@ header {
       & .input {
         height: 14%;
         width: 24%;
-        border-radius: 5px;
         background: var(--bg-sec);
         box-shadow: var(--shadow);
         color: var(--txt-pri);
@@ -264,7 +249,7 @@ header {
   }
 }
 
-main {
+.plot {
   height: 100vh;
   width: 100%;
   display: flex;
@@ -343,17 +328,18 @@ main {
   justify-content: center;
   gap: 10px;
   width: 100%;
-  & .input{
+  & .input {
     width: 48%;
     flex-shrink: 0;
     border: 1px solid lightblue;
     box-shadow: var(--shadow);
     padding: 10px;
-    & input,button{
+    & input,
+    button {
       height: 40px;
       font-size: 15px;
     }
-    & button{
+    & button {
       padding: 0px 10px;
       background: lightblue;
     }

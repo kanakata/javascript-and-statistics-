@@ -1,4 +1,4 @@
-export class Stack {
+class Stack {
   #dataset = [];
   top = 0;
   add(data) {
@@ -24,7 +24,7 @@ export class Stack {
   }
 }
 
-export class Queue {
+class Queue {
   #dataset = [];
   #count = 0;
   print() {
@@ -47,7 +47,7 @@ export class Queue {
   }
 }
 
-export class PriorityQueue {
+class PriorityQueue {
   #dataset = [];
   print() {
     return this.#dataset;
@@ -84,7 +84,7 @@ export class PriorityQueue {
   }
 }
 
-export class Set {
+class Set {
   #dataset = [];
 
   values() {
@@ -119,7 +119,7 @@ export class Set {
   union(set) {}
 }
 
-export class HashTable {
+class HashTable {
   constructor(params) {
     this.table = new Array(137);
     this.size = 0;
@@ -135,7 +135,7 @@ export class HashTable {
 
   add(key, value) {
     const index = this.hash(key);
-    
+
     this.size++;
   }
   delete(key) {

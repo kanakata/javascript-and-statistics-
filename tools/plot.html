@@ -10,7 +10,7 @@
     <script src="../javascript/qualitative-analysis/descriptive-statistics/non-grouped-data.js"></script>
   </head>
   <body>
-    <main>
+    <main class="plot">
       <div class="graph">
         <canvas id="canvas"></canvas>
       </div>
@@ -38,8 +38,7 @@
     </template>
 
     <script>
-
-      window.addEventListener("DOMContentLoaded", () => {
+      window.addEventListener('DOMContentLoaded', () => {
         data_summary();
         plot(document.getElementById('canvas'));
       });
@@ -179,7 +178,7 @@
 
         const canvas = document.createElement('canvas');
         canvas.setAttribute('id', 'canvas');
-        document.querySelector(".graph").appendChild(canvas);
+        document.querySelector('.graph').appendChild(canvas);
         plot(canvas, data, labels, colors);
         close_form();
       }
@@ -216,8 +215,6 @@
           data_area.appendChild(list);
         }
       }
-
-
     </script>
   </body>
 </html>
